@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+    database:
+        image: mysql:8.0.28
+        volumes:
+            - db_data:/var/lib/mysql
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_DATABASE: starter
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: test
+            MYSQL_PASSWORD: test
+
+    adminer:
+        image: adminer
+        restart: unless-stopped
+        ports:
+            - 8080:8080
+
+    nextapp:
+        depends_on:
+            - database
+        image: starter
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        restart: unless-stopped
+        ports:
+            - "9229:9229"
+            - "3000:3000"
+        # only the first time, do not mount volume but copy node_modules: 
+        # docker cp nextjs-mysql-prisma-yup-starter_nextapp_1:/app/node_modules .
+        volumes:
+          - .:/app
+
+volumes:
+    db_data: {}

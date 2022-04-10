@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+}
+
+body {
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+  padding: 20px 20px 60px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+table {
+  border-collapse: collapse;
+}
+table thead tr {
+  border: 1px solid #222;
+}
+table tbody tr {
+  border: 1px solid #ddd;
+}
+table tr th, table tr td {
+  padding: 4px 10px;
+}
+table thead tr th {
+  background-color: #222;
+  color: #eee;
+}
+table tbody tr:nth-child(even) {
+  background-color: #ddd;
+}
+
+.form-field {
+  padding: 5px 0 10px 0;
+}
