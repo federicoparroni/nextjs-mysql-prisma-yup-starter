@@ -14,7 +14,7 @@ services:
     nextapp:
         depends_on:
             - database
-        image: starter
+        image: nextjs-starter
         build: .
         restart: unless-stopped
         ports:
