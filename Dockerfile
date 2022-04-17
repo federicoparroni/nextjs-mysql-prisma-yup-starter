@@ -29,6 +29,9 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+# entrypoint
+COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 USER nextjs
 
@@ -38,5 +41,5 @@ EXPOSE 3000
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry.
 ENV NEXT_TELEMETRY_DISABLED 1
-
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["yarn", "start"]
