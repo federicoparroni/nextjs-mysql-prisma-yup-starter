@@ -30,7 +30,7 @@ export default function Home({ users: initialUsers }: UsersProps) {
   }
 
   const editUser = async (user: UserPatchData) => {
-    const response = await fetch(`/api/users/${editingUser.id}`, {
+    const response = await fetch(`/api/users/${editingUser!.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
