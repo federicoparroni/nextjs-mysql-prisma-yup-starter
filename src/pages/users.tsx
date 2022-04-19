@@ -103,6 +103,7 @@ export default function Home({ users: initialUsers }: UsersProps) {
             initialValues={{
               firstName: editingUser.firstName,
               lastName: editingUser.lastName,
+              role: null,
             }}
             onSubmit={async (values) => {
               editUser(values);

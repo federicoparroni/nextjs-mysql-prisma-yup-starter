@@ -7,7 +7,9 @@ export const UserSchema = Yup.object().shape({
     email: Yup.string().email().required(),
     firstName: Yup.string().min(1).max(128).required(),
     lastName: Yup.string().min(1).max(128).required(),
-    role: Yup.string().uppercase().oneOf(enumToArray(Role)).optional().default(Role.USER),
+    role: Yup.mixed<Role | null>().oneOf(enumToArray(Role)).nullable().default(Role.USER)
+        .transform((value: any, input, ctx) => Role[value]
+    ),
 });
 export type User = Yup.InferType<typeof UserSchema>;
 
@@ -26,7 +28,7 @@ export const UserGetSchema = UserSchema.pick([
 ]);
 
 export const UserPatchSchema = Yup.object().shape({
-    firstName: UserSchema.fields.firstName.optional(),
-    lastName: UserSchema.fields.lastName.optional(),
+    firstName: Yup.string().min(1).max(128).optional(),
+    lastName: Yup.string().min(1).max(128).optional(),
 });
 export type UserPatchData = Yup.InferType<typeof UserPatchSchema>;

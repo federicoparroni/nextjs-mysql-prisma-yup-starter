@@ -1,3 +1,4 @@
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -5,7 +6,9 @@ export default function Home() {
       <h2>Home</h2>
 
       <section>
-        <a href="/users">Users</a>
+        <Link href="/users">
+          <a>Users</a>
+        </Link>
       </section>
     </>
   )
