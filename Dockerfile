@@ -5,6 +5,9 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --network-timeout 1000000000
+# prisma
+COPY prisma prisma
+RUN npx prisma generate
 
 # Rebuild the source code only when needed
 FROM node:16.13-alpine3.12 AS builder
@@ -15,7 +18,8 @@ RUN yarn build
 
 # Production image, copy all the files and run next
 FROM node:16.13-alpine3.12 AS runner
-RUN apk add --no-cache libc6-compat mysql-client
+RUN apk add --no-cache libc6-compat mysql-client tzdata
+RUN apk add --update busybox-suid
 WORKDIR /app
 
 ENV NODE_ENV production
